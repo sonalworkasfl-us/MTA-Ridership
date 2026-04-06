@@ -1,0 +1,23 @@
+# Ignore raw and processed data
+data/raw_combined/*
+data/processed/*
+
+# Keep only small sample data
+!data/sample_data/sample.csv
+
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+venv/
+env/
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE settings
+.vscode/
+.idea/
