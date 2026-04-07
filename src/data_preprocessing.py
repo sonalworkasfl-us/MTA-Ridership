@@ -61,3 +61,4 @@ os.makedirs(sample_dir, exist_ok=True)
 
 output_path = os.path.join(sample_dir, "sample.csv")
 df_sample.to_csv(output_path, index=False)
+print(df.columns.tolist())
