@@ -6,4 +6,6 @@ plotly
 geopandas
 shapely
 scikit-learn
-os
+psycopg2-binary
+sqlalchemy 
+dotenv
