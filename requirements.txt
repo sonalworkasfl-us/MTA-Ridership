@@ -9,3 +9,7 @@ scikit-learn
 psycopg2-binary
 sqlalchemy 
 dotenv
+PyAthena
+pydantic
+fastapi
+uvicorn[standard]
