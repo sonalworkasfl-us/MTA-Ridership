@@ -1,64 +1,56 @@
+# src/data_preprocessing.py
 
 import pandas as pd
-import os 
+import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Define your custom data path
-DATA_DIR = os.path.join(BASE_DIR, "data", "raw_combined")
+def load_and_preprocess():
+    data_path = os.path.join(BASE_DIR, "data", "processed", "ridership_clean.csv")
+    df = pd.read_csv(data_path, parse_dates=['transit_timestamp'])
 
-# Example: load a CSV file
-file_path = os.path.join(DATA_DIR, "data.csv")
-df = pd.read_csv(file_path)
+    # Feature engineering
+    model_df = pd.DataFrame()
+    model_df['month'] = df['transit_timestamp'].dt.month
+    model_df['day'] = df['transit_timestamp'].dt.day
+    model_df['hour'] = df['transit_timestamp'].dt.hour
+    model_df['borough'] = df['borough']
+    model_df['payment_method'] = df['payment_method']
+    model_df['ridership'] = df['ridership']
 
-print("Data Loaded Successfully!!!!")
+    # Aggregate ridership by time + categorical features
+    model_df = model_df.groupby(['month', 'day', 'hour', 'borough', 'payment_method'])['ridership'].sum().reset_index()
+
+    # Encode categorical features
+    X = pd.get_dummies(model_df[['month', 'day', 'hour', 'borough', 'payment_method']],drop_first=True)
+    y = model_df['ridership']
+
+    return X, y
 
 
-#Data Cleaning 
+if __name__ == "__main__":
+    DATA_DIR = os.path.join(BASE_DIR, "data", "raw_combined")
+    file_path = os.path.join(DATA_DIR, "data.csv")
+    df = pd.read_csv(file_path)
 
-print("Loading Data Cleaning!!!!!!!!!!!!!!!!!")
-# change transit_timestamp to datetime object
-df['transit_timestamp'] = pd.to_datetime(df['transit_timestamp'])
+    # Cleaning steps...
+    df['transit_timestamp'] = pd.to_datetime(df['transit_timestamp'])
+    df.dropna(axis=1, inplace=True)
+    df['borough'] = df['borough'].replace({
+        'M': 'Manhattan', 'Q': 'Queens', 'BK': 'Brooklyn',
+        'BX': 'Bronx', 'SI': 'Staten Island'
+    })
+    df['station_complex'] = df['station_complex'].str.replace(r'\(.*\)', '', regex=True)
 
-# check the earliest and latest time of the data
-print(df['transit_timestamp'].min())
-print(df['transit_timestamp'].max())
+    # Save cleaned dataset
+    df.to_csv(os.path.join(BASE_DIR, "data", "processed", "ridership_clean.csv"), index=False)
+    print(list(df.columns))
 
-# Check for NaN values in each column
-df.isnull().sum()
-# Drop columns with NaN values
-df.dropna(axis=1, inplace=True)
 
-# Check is there is any NaN values
-df.isnull().sum()
+    # Save sample
+    df_sample = df.sample(n=1000, random_state=42)
+    sample_dir = os.path.join(BASE_DIR, "data", "sample_data")
+    os.makedirs(sample_dir, exist_ok=True)
+    df_sample.to_csv(os.path.join(sample_dir, "sample.csv"), index=False)
 
-df.info()
-
-df.shape
-
-#get unique values of column borough. update value M into Manhattan, Q to Queens, BK to Brooklyn, BX to Bronx, SI to Staten Island
-df['borough'] = df['borough'].replace({
-    'M': 'Manhattan',
-    'Q': 'Queens',
-    'BK': 'Brooklyn',
-    'BX': 'Bronx',
-    'SI': 'Staten Island'
-})
-
-#get unique values of column borough.
-unique_boroughs = df['borough'].unique()
-print(unique_boroughs)
-
-# remove the () and everything in between the () from each station_complex row in the df
-df['station_complex'] = df['station_complex'].str.replace(r'\(.*\)', '', regex=True)
-
-print(df.head())
-
-df.to_csv(os.path.join(BASE_DIR, "data", "processed", "ridership_clean.csv"), index=False)
-df_sample = df.sample(n=1000, random_state=42)
-
-sample_dir = os.path.join(BASE_DIR, "data", "sample_data")
-os.makedirs(sample_dir, exist_ok=True)
-
-output_path = os.path.join(sample_dir, "sample.csv")
-df_sample.to_csv(output_path, index=False)
-print(df.columns.tolist())
+    print("Preprocessing complete. Cleaned and sample data saved.")
