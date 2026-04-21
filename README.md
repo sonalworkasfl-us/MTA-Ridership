@@ -3,29 +3,29 @@
 This project predicts NYC subway ridership at any given time using historical datasets and machine learning models. The workflow demonstrates end‑to‑end data engineering and analytics: ETL → preprocessing → modeling → deployment → visualization.
 
 🚀 **Features**
-ETL in Python: Automated ingestion and cleaning of raw MTA ridership datasets using Pandas and custom scripts.
+ETL in Python: Automated ingestion and cleaning of raw MTA ridership datasets using Pandas and custom scripts.\
 
-Preprocessing: Centralized feature engineering (dummy encoding, scaling, feature alignment) for reproducible predictions.
+Preprocessing: Centralized feature engineering (dummy encoding, scaling, feature alignment) for reproducible predictions.\
 
-Machine Learning: Models trained with Scikit‑Learn (Random Forest, Gradient Boosting) to forecast ridership patterns.
+Machine Learning: Models trained with Scikit‑Learn (Random Forest, Gradient Boosting) to forecast ridership patterns.\
 
-Deployment: FastAPI service containerized with Docker, serving predictions via REST API.
+Deployment: FastAPI service containerized with Docker, serving predictions via REST API.\
 
-Visualization: Power BI dashboards built on processed data for interactive KPI monitoring.
+Visualization: Power BI dashboards built on processed data for interactive KPI monitoring.\
 
 📂 **Project Structure**
 
-MTA-Ridership/
-│── data/               # Sample datasets (large files excluded via .gitignore)
-│── src/                # ETL + preprocessing scripts, FastAPI app
-│── models/             # Trained ML models + saved feature columns
-│── BI/                 # Power BI reports
-│── Dockerfile          # Container setup
-│── requirements.txt    # Python dependencies
-│── README.md           # Project documentation
+MTA-Ridership/\
+│── data/               # Sample datasets (large files excluded via .gitignore)\
+│── src/                # ETL + preprocessing scripts, FastAPI app\
+│── models/             # Trained ML models + saved feature columns\
+│── BI/                 # Power BI reports\
+│── Dockerfile          # Container setup\
+│── requirements.txt    # Python dependencies\
+│── README.md           # Project documentation\
 
-⚙️ **Tech Stack**
-Languages: Python (Pandas, NumPy, Scikit‑Learn, Matplotlib, Seaborn)
+⚙️ **Tech Stack**\
+Languages: Python (Pandas, NumPy, Scikit‑Learn, Matplotlib, Seaborn)\
 
 Data Engineering: ETL + preprocessing in Python scripts
 
