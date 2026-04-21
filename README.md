@@ -23,6 +23,7 @@ MTA-Ridership/
 │── Dockerfile          # Container setup
 │── requirements.txt    # Python dependencies
 │── README.md           # Project documentation
+
 ⚙️ **Tech Stack**
 Languages: Python (Pandas, NumPy, Scikit‑Learn, Matplotlib, Seaborn)
 
