@@ -56,10 +56,10 @@ http://localhost:8000/docs
 
 
 📊 **Future Enhancements**
-Integrate Airflow for orchestration of ETL jobs.
+-Integrate Airflow for orchestration of ETL jobs.
 
-Migrate storage to AWS Redshift/S3 for scalability.
+-Migrate storage to AWS Redshift/S3 for scalability.
 
-Add real‑time streaming ingestion from MTA feeds.
+-Add real‑time streaming ingestion from MTA feeds.
 
-Expand dashboards with anomaly detection and predictive alerts.
+-Expand dashboards with anomaly detection and predictive alerts.
